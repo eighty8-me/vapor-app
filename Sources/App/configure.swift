@@ -37,4 +37,14 @@ public func configure(_ config: inout Config, _ env: inout Environment, _ servic
     var migrations = MigrationConfig()
     migrations.add(model: Todo.self, database: .psql)
     services.register(migrations)
+
+    // WebSocketサーバの作成
+    let wss = NIOWebSocketServer.default()
+
+    // WebSocketアップグレードサポートを/echoに追加
+    let chatRoom = ChatRoom()
+    wss.get("echo", use: chatRoom.handler())
+
+    // WebSocketサーバの登録
+    services.register(wss, as: WebSocketServer.self)
 }

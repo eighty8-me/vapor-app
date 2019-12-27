@@ -5,27 +5,17 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-      # args:
-      #   env: dev
     image: api:dev
-    # env_file:
-    #   - ./environments/db.env
     environment:
       SLEEP_LENGTH: ${SLEEP_LENGTH}
       POSTGRES_HOST: ${POSTGRES_HOST}
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       POSTGRES_DB: ${POSTGRES_DB}
-      # SLEEP_LENGTH: 5
-      # POSTGRES_HOST: db
-      # POSTGRES_USER: postgres
-      # POSTGRES_PASSWORD: CoDeNaME_88
-      # POSTGRES_DB: test
     ports:
       - 8080:8080
     volumes:
       - .:/app
-    # working_dir: /app
     networks:
       - vapor-net
     stdin_open: true
@@ -37,19 +27,12 @@ services:
     image: postgres:12.1-alpine
     ports:
       - 5432:5432
-    # env_file:
-    #   - ./environments/db.env
     environment:
       SLEEP_LENGTH: ${SLEEP_LENGTH}
       POSTGRES_HOST: ${POSTGRES_HOST}
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       POSTGRES_DB: ${POSTGRES_DB}
-      # SLEEP_LENGTH: 5
-      # POSTGRES_HOST: db
-      # POSTGRES_USER: postgres
-      # POSTGRES_PASSWORD: CoDeNaME_88
-      # POSTGRES_DB: test
     volumes:
       - db-data:/var/lib/postgresql/data
     networks:
@@ -65,7 +48,6 @@ services:
       - 80:80
     volumes:
       - log-data:/var/log/nginx
-    #   - public-data:/app/public
     networks:
       - vapor-net
     restart: always
@@ -75,7 +57,5 @@ networks:
   vapor-net:
     driver: bridge
 volumes:
-#   public-data:
-#   # tmp-data:
   log-data:
   db-data:

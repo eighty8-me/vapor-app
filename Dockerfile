@@ -6,4 +6,4 @@ RUN apt-get -qq update && apt-get install -y \
 
 WORKDIR /app
 
-CMD ["swift", "run", "Run", "serve", "-b", "0.0.0.0"]
+ENTRYPOINT ["swift", "run", "Run", "serve", "-b", "0.0.0.0"]
